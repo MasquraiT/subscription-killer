@@ -1,0 +1,22 @@
+[app]
+title = Subscription Killer
+package.name = subkiller
+package.domain = org.killer
+source.dir = .
+source.include_exts = py,png,jpg,kv,atlas,json
+version = 0.1
+requirements = python3,kivy==2.3.0,kivymd==1.2.0,plyer,datetime,sdl2_ttf,pillow
+
+orientation = portrait
+fullscreen = 0
+android.permissions = INTERNET,VIBRATE,WAKE_LOCK,WRITE_EXTERNAL_STORAGE,SCHEDULE_EXACT_ALARM
+
+# LİSANS İZNİ (Kritik Satır)
+android.accept_sdk_license = True
+
+# Android Yapılandırması
+android.archs = arm64-v8a, armeabi-v7a
+android.api = 33
+android.minapi = 21
+android.ndk_api = 21
+p4a.branch = master
