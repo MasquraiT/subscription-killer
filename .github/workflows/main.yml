@@ -5,13 +5,12 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # BURASI DEĞİŞTİ: En kararlı sürüm 22.04'ü kullanıyoruz
+    runs-on: ubuntu-22.04
 
     steps:
-      # 1. Kodları Çek
       - uses: actions/checkout@v4
 
-      # 2. Disk Temizliği (Yerin dolmaması için önlem)
       - name: Free Disk Space
         run: |
           sudo rm -rf /usr/share/dotnet
@@ -19,20 +18,17 @@ jobs:
           sudo rm -rf "/usr/local/share/boost"
           sudo rm -rf "$AGENT_TOOLSDIRECTORY"
 
-      # 3. Java 17 Kur
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      # 4. Python Kur
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
-      # 5. EKSİK PARÇALARI YÜKLE (Hatayı düzelten kısım: zip, unzip, libncurses)
       - name: Install Dependencies
         run: |
           sudo apt-get update
@@ -47,12 +43,11 @@ jobs:
           pip install --upgrade pip
           pip install buildozer cython==0.29.33
 
-      # 6. APK'yı Derle (Verbose modunda: Detaylı log)
       - name: Build APK
         run: |
-          yes | buildozer -v android debug
+          # Spec dosyasına lisans izni eklediğimiz için artık takılmayacak
+          buildozer -v android debug
 
-      # 7. APK'yı Yükle
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
